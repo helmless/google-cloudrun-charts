@@ -55,7 +55,7 @@ def dereference_schema(input_file, output_file):
             try:
                 base_path = os.path.dirname(os.path.abspath(input_file))
                 base_uri = f"file://{base_path}/"
-                schema = jsonref.load(f, base_uri=base_uri)
+                schema = jsonref.load(f, base_uri=base_uri, proxies=False)
             except json.decoder.JSONDecodeError as e:
                 logger.error(f"JSON parsing error in {input_file}: {e}")
                 return False
@@ -71,7 +71,7 @@ def dereference_schema(input_file, output_file):
         # Only write to output file if dereferencing completed successfully
         try:
             with open(output_file, 'w', newline='\n') as f:
-                json_str = json.dumps(schema, indent=2)
+                json_str = jsonref.dumps(schema, indent=2)
                 # Ensure file ends with a single newline
                 if not json_str.endswith('\n'):
                     json_str += '\n'

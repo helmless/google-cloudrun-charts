@@ -1,15 +1,41 @@
 {{/*
+Helmless metadata CRD
+*/}}
+{{- define "helmless.cloudrun.metadata" -}}
+apiVersion: cloudrun.helmless.io/v1
+kind: Metadata
+metadata:
+  name: {{ .Values.name }}
+spec:
+  region: {{ include "helmless.cloudrun.region" . | quote }}
+  project: {{ include "helmless.cloudrun.project" . | quote }}
+{{- end -}}
+
+{{/*
 Get the region from the values or use the default.
 */}}
 {{- define "helmless.cloudrun.region" -}}
-{{- .Values.region | default "us-central1" }}
+{{- .Values.region | default ((.Values.global).region | default "us-central1") -}}
+{{- end -}}
+
+{{/*
+Get the project from the global values or use the default.
+*/}}
+{{- define "helmless.cloudrun.project" -}}
+{{- if .Values.project -}}
+{{- .Values.project }}
+{{- else if (.Values.global).project -}}
+{{- .Values.global.project }}
+{{- else }}
+{{- fail "project is required" }}
+{{- end -}}
 {{- end -}}
 
 {{/*
 Compute common labels
 */}}
 {{- define "helmless.cloudrun.labels" -}}
-{{- with .Values.project -}}
+{{- with (include "helmless.cloudrun.project" .) -}}
 project: {{ . | quote }}
 {{- end }}
 release: {{ .Release.Name | quote }}

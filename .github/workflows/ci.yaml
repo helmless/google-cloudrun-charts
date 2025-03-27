@@ -15,6 +15,7 @@ jobs:
     strategy:
       matrix:
         chart:
+          - 'charts/cloudrun/common/tests/chart'
           - 'charts/cloudrun/service'
           - 'charts/cloudrun/job'
     steps:

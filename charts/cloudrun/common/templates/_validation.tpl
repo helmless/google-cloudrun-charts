@@ -1,4 +1,16 @@
 {{/*
+Validate metadata
+*/}}
+{{- define "helmless.cloudrun.validateMetadata" -}}
+{{- if not .Values.name -}}
+{{- fail "name is required" -}}
+{{- end -}}
+{{- if not (include "helmless.cloudrun.project" .) -}}
+{{- fail "project is required" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Validate CPU settings and return error message if invalid
 */}}
 {{- define "helmless.cloudrun.validateCPU" -}}

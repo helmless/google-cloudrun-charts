@@ -12,13 +12,13 @@ repos:
       - id: dereference-schema
         name: Dereference Schema
         files: ^charts/.*values-edit-me\.schema\.json$
-        entry: bin/pre-commit-hooks/dereference-schema.sh
+        entry: ./update-schema.sh
         language: script
         pass_filenames: false
       - id: helm-unittest
         name: Helm-unittest
         files: ^charts/.*$
-        entry: bin/pre-commit-hooks/helm-unittest.sh
+        entry: ./test.sh
         language: script
         pass_filenames: false
         always_run: true
