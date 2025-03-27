@@ -13,5 +13,5 @@ maintainers:
 dependencies:
   - name: google-cloudrun-common
     repository: file://../common
-    version: 0.x.x
+    version: 1.x.x
     alias: common

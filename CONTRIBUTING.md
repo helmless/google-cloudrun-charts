@@ -63,7 +63,7 @@ schema_renderer:
     #   nav_path: docs/cloudrun/schemas/service/index.md
     # - schema_path: https://raw.githubusercontent.com/helmless/google-cloudrun-charts/main/charts/cloudrun/job/values.schema.json
     #   changelog_path: https://raw.githubusercontent.com/helmless/google-cloudrun-charts/main/charts/cloudrun/job/CHANGELOG.md
-    #   nav_path: docs/cloudrun/schemas/job/index.md    
+    #   nav_path: docs/cloudrun/schemas/job/index.md
     - schema_path: ../google-cloudrun-charts/charts/cloudrun/service/values.schema.json
       changelog_path: ../google-cloudrun-charts/charts/cloudrun/service/CHANGELOG.md
       nav_path: docs/cloudrun/schemas/service/index.md

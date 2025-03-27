@@ -6,7 +6,7 @@ set:
   name: my-job
 
 tests:
-  - it: should set name 
+  - it: should set name
     set:
       project: my-project
     asserts:
@@ -55,7 +55,7 @@ tests:
           path: spec.region
           value: europe-west1
 
-  - it: should allow setting global region 
+  - it: should allow setting global region
     set:
       global:
         project: my-project
