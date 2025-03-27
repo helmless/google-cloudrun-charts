@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/helmless/google-cloudrun-charts/compare/google-cloudrun-common-v1.0.0...google-cloudrun-common-v1.0.1) (2025-03-27)
+
+
+### Bug Fixes
+
+* **deps:** update common chart dependency ([aee27ae](https://github.com/helmless/google-cloudrun-charts/commit/aee27ae4108575f429a0578c4742a17a490ff371))
+
 ## [1.0.0](https://github.com/helmless/google-cloudrun-charts/compare/google-cloudrun-common-v0.1.1...google-cloudrun-common-v1.0.0) (2025-03-27)
 
 
