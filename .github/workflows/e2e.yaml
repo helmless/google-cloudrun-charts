@@ -57,7 +57,7 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_POOL }}
 
       - name: 🚀 Deploy Service
-        uses: helmless/google-cloudrun-action@v0
+        uses: helmless/google-cloudrun-action@v1
         id: deploy
         with:
           dry_run: true
@@ -89,7 +89,7 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_POOL }}
 
       - name: 🚀 Deploy Job
-        uses: helmless/google-cloudrun-action@v0
+        uses: helmless/google-cloudrun-action@v1
         id: deploy
         with:
           dry_run: false
