@@ -1,0 +1,77 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: Helmless Metadata Tests
+templates:
+  - helmless.yaml
+set:
+  name: my-job
+
+tests:
+  - it: should set name 
+    set:
+      project: my-project
+    asserts:
+      - equal:
+          path: metadata.name
+          value: my-job
+
+  - it: should fail when project is not set
+    asserts:
+      - failedTemplate:
+          errorMessage: "project is required"
+
+  - it: should use global project when not set directly
+    set:
+      global:
+        project: my-global-project
+    asserts:
+      - equal:
+          path: spec.project
+          value: my-global-project
+
+  - it: should allow overriding global project
+    set:
+      project: my-custom-project
+      global:
+        project: my-global-project
+    asserts:
+      - equal:
+          path: spec.project
+          value: my-custom-project
+
+  - it: should set default region
+    set:
+      project: my-project
+    asserts:
+      - equal:
+          path: spec.region
+          value: us-central1
+
+  - it: should set region
+    set:
+      project: my-project
+      region: europe-west1
+    asserts:
+      - equal:
+          path: spec.region
+          value: europe-west1
+
+  - it: should allow setting global region 
+    set:
+      global:
+        project: my-project
+        region: europe-west1
+    asserts:
+      - equal:
+          path: spec.region
+          value: europe-west1
+
+  - it: should allow overriding global region
+    set:
+      project: my-project
+      region: europe-west1
+      global:
+        region: us-central3
+    asserts:
+      - equal:
+          path: spec.region
+          value: europe-west1

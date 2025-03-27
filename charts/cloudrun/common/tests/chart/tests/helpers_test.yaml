@@ -2,6 +2,9 @@
 suite: Test helper functions
 templates:
   - helpers.yaml
+set:
+  global:
+    project: my-project
 tests:
   # Image Helper Tests
   - it: should correctly format image reference from string

@@ -63,3 +63,4 @@ helm install my-job helmless/cloudrun-job -f values.yaml
 | `secrets`        | Secret Manager secrets           | `{}`          |
 
 For more detailed configuration options, please refer to the [values.schema.json](values.schema.json) file.
+

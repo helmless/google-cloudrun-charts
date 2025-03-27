@@ -6,8 +6,7 @@
   "title": "Cloud Run Job Chart",
   "description": "A Helm chart to template the manifest of a Cloud Run Job.",
   "required": [
-    "name",
-    "project"
+    "name"
   ],
   "type": "object",
   "examples": [
@@ -32,13 +31,30 @@
     }
   ],
   "properties": {
+    "global": {
+      "type": "object",
+      "description": "These values can be set globally and will be used for all subcharts. If you want to set them for a specific subchart, you can do so by setting the values in the subchart itself.",
+      "examples": [
+        {
+          "project": "my-project",
+          "region": "us-central1"
+        }
+      ],
+      "properties": {
+        "project": {
+          "$ref": "../common/common.schema.json#/$defs/project"
+        },
+        "region": {
+          "$ref": "../common/common.schema.json#/$defs/region"
+        }
+      }
+    },
     "name": {
       "$ref": "../common/common.schema.json#/$defs/name",
       "$since": "0.1.1"
     },
     "project": {
-      "$ref": "../common/common.schema.json#/$defs/project",
-      "$since": "0.1.1"
+      "$ref": "../common/common.schema.json#/$defs/project"
     },
     "region": {
       "$ref": "../common/common.schema.json#/$defs/region",
@@ -150,13 +166,6 @@
     },
     "encryption": {
       "$ref": "../common/common.schema.json#/$defs/encryption",
-      "$since": "0.1.1"
-    },
-    "global": {
-      "type": "object",
-      "additionalProperties": true,
-      "description": "Global settings of the Helm chart.",
-      "$hidden": true,
       "$since": "0.1.1"
     },
     "common": {

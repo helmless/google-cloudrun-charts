@@ -1,13 +1,12 @@
 {
   "$id": "https://github.com/helmless/helmless/charts/cloudrun/service",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "version": "0.2.1",
+  "version": "0.1.1",
   "additionalProperties": false,
   "title": "Cloud Run Service Chart",
   "description": "A Helm chart to template the manifest of a Cloud Run Service.",
   "required": [
-    "name",
-    "project"
+    "name"
   ],
   "type": "object",
   "examples": [
@@ -35,6 +34,38 @@
     }
   ],
   "properties": {
+    "global": {
+      "type": "object",
+      "description": "These values can be set globally and will be used for all subcharts. If you want to set them for a specific subchart, you can do so by setting the values in the subchart itself.",
+      "examples": [
+        {
+          "project": "my-project",
+          "region": "us-central1"
+        }
+      ],
+      "properties": {
+        "project": {
+          "description": "The Google cloud project to deploy the Cloud Run Service or Job to.",
+          "type": "string",
+          "examples": [
+            "my-project"
+          ]
+        },
+        "region": {
+          "description": "The region to deploy the CloudRun service to. Uses the default region if not provided.",
+          "type": [
+            "string"
+          ],
+          "default": "us-central1",
+          "pattern": "^(asia|europe|me|us|africa|australia|northamerica|southamerica)-[a-z]+(\\d+)$",
+          "examples": [
+            "us-central1",
+            "europe-west1",
+            "asia-east1"
+          ]
+        }
+      }
+    },
     "name": {
       "description": "Name of the Cloud Run Service or Job. Must be unique within the project region combination.",
       "maxLength": 63,
@@ -44,16 +75,14 @@
       ],
       "examples": [
         "my-cloudrun-container"
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "project": {
       "description": "The Google cloud project to deploy the Cloud Run Service or Job to.",
       "type": "string",
       "examples": [
         "my-project"
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "region": {
       "description": "The region to deploy the CloudRun service to. Uses the default region if not provided.",
@@ -66,8 +95,7 @@
         "us-central1",
         "europe-west1",
         "asia-east1"
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "image": {
       "description": "Container image to deploy. You can provide a direct reference to an image using a `string` or split up the inputs using the `object`.",
@@ -143,24 +171,21 @@
           "name": "my-image",
           "tag": "1.0.0"
         }
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "revisionName": {
       "description": "The name of the Cloud Run revision to deploy. If not provided, a random name will be generated. The revision will always be prefixed with the service name.",
       "type": "string",
       "examples": [
         "my-revision"
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "containerName": {
       "description": "Optional name for the container within a revision. Automatically generated if not supplied.",
       "type": "string",
       "examples": [
         "my-container"
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "serviceAccountName": {
       "description": "Service account to use to run the CloudRun container. If not provided, the default service account of the project is used.",
@@ -175,8 +200,7 @@
       "type": "string",
       "examples": [
         "My service does xyz."
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "env": {
       "description": "Environment variables to set in the CloudRun container. Using an object allows merging of multiple values, e.g. `env.staging` and `env.production`.",
@@ -1014,8 +1038,7 @@
           ],
           "$since": "0.1.0"
         }
-      },
-      "$since": "0.1.1"
+      }
     },
     "sessionAffinity": {
       "default": false,
@@ -1493,13 +1516,6 @@
         }
       ],
       "$since": "0.1.0"
-    },
-    "global": {
-      "type": "object",
-      "additionalProperties": true,
-      "description": "Global settings of the Helm chart.",
-      "$hidden": true,
-      "$since": "0.1.1"
     },
     "common": {
       "type": "object",
