@@ -50,7 +50,7 @@
           "examples": [
             "my-project"
           ],
-          "$since": "1.0.0"
+          "$since": "0.1.1"
         },
         "region": {
           "description": "The region to deploy the CloudRun service to. Uses the default region if not provided.",
@@ -64,7 +64,7 @@
             "europe-west1",
             "asia-east1"
           ],
-          "$since": "1.0.0"
+          "$since": "0.1.1"
         }
       },
       "$since": "0.1.1"
@@ -79,7 +79,7 @@
       "examples": [
         "my-cloudrun-container"
       ],
-      "$since": "1.0.0"
+      "$since": "0.1.1"
     },
     "project": {
       "description": "The Google cloud project to deploy the Cloud Run Service or Job to.",
@@ -87,7 +87,7 @@
       "examples": [
         "my-project"
       ],
-      "$since": "1.0.0"
+      "$since": "0.1.1"
     },
     "region": {
       "description": "The region to deploy the CloudRun service to. Uses the default region if not provided.",
@@ -101,7 +101,7 @@
         "europe-west1",
         "asia-east1"
       ],
-      "$since": "1.0.0"
+      "$since": "0.1.1"
     },
     "image": {
       "description": "Container image to deploy. You can provide a direct reference to an image using a `string` or split up the inputs using the `object`.",
@@ -178,7 +178,7 @@
           "tag": "1.0.0"
         }
       ],
-      "$since": "1.0.0"
+      "$since": "0.1.1"
     },
     "revisionName": {
       "description": "The name of the Cloud Run revision to deploy. If not provided, a random name will be generated. The revision will always be prefixed with the service name.",
@@ -186,7 +186,7 @@
       "examples": [
         "my-revision"
       ],
-      "$since": "1.0.0"
+      "$since": "0.1.1"
     },
     "containerName": {
       "description": "Optional name for the container within a revision. Automatically generated if not supplied.",
@@ -194,7 +194,7 @@
       "examples": [
         "my-container"
       ],
-      "$since": "1.0.0"
+      "$since": "0.1.1"
     },
     "serviceAccountName": {
       "description": "Service account to use to run the CloudRun container. If not provided, the default service account of the project is used.",
@@ -210,7 +210,7 @@
       "examples": [
         "My service does xyz."
       ],
-      "$since": "1.0.0"
+      "$since": "0.1.1"
     },
     "env": {
       "description": "Environment variables to set in the CloudRun container. Using an object allows merging of multiple values, e.g. `env.staging` and `env.production`.",
@@ -1049,7 +1049,7 @@
           "$since": "0.1.0"
         }
       },
-      "$since": "1.0.0"
+      "$since": "0.1.1"
     },
     "sessionAffinity": {
       "default": false,

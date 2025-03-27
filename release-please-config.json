@@ -12,6 +12,11 @@
                     "type": "json",
                     "path": "values.schema.json",
                     "jsonpath": "$.version"
+                },
+                {
+                    "type": "json",
+                    "path": "values-edit-me.schema.json",
+                    "jsonpath": "$.version"
                 }
             ]
         },
@@ -24,6 +29,11 @@
                 {
                     "type": "json",
                     "path": "values.schema.json",
+                    "jsonpath": "$.version"
+                },
+                {
+                    "type": "json",
+                    "path": "values-edit-me.schema.json",
                     "jsonpath": "$.version"
                 }
             ]
