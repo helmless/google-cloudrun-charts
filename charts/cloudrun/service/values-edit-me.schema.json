@@ -45,12 +45,15 @@
       ],
       "properties": {
         "project": {
-          "$ref": "../common/common.schema.json#/$defs/project"
+          "$ref": "../common/common.schema.json#/$defs/project",
+          "$since": "0.1.1"
         },
         "region": {
-          "$ref": "../common/common.schema.json#/$defs/region"
+          "$ref": "../common/common.schema.json#/$defs/region",
+          "$since": "0.1.1"
         }
-      }
+      },
+      "$since": "0.1.1"
     },
     "name": {
       "$ref": "../common/common.schema.json#/$defs/name",

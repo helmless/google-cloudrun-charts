@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0](https://github.com/helmless/google-cloudrun-charts/compare/google-cloudrun-common-v0.1.1...google-cloudrun-common-v1.0.0) (2025-03-27)
+
+
+### Features
+
+* add globals for project and region ([#5](https://github.com/helmless/google-cloudrun-charts/issues/5)) ([f3c3230](https://github.com/helmless/google-cloudrun-charts/commit/f3c3230732bc65c06c17825c7d7d46351b803033))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0 ([9d28835](https://github.com/helmless/google-cloudrun-charts/commit/9d28835f7d426e028019a850f9cb784341d0a898))
+
 ## [0.1.1](https://github.com/helmless/helmless/compare/google-cloudrun-common-v0.1.0...google-cloudrun-common-v0.1.1) (2025-03-21)
 
 
