@@ -1,7 +1,7 @@
 {
   "$id": "https://github.com/helmless/helmless/charts/cloudrun/job",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "version": "0.1.1",
+  "version": "0.3.0",
   "additionalProperties": false,
   "title": "Cloud Run Job Chart",
   "description": "A Helm chart to template the manifest of a Cloud Run Job.",
@@ -47,7 +47,7 @@
           "examples": [
             "my-project"
           ],
-          "$since": "0.1.1"
+          "$since": "0.3.0"
         },
         "region": {
           "description": "The region to deploy the CloudRun service to. Uses the default region if not provided.",
@@ -61,7 +61,7 @@
             "europe-west1",
             "asia-east1"
           ],
-          "$since": "0.1.1"
+          "$since": "0.3.0"
         }
       },
       "$since": "0.1.1"
