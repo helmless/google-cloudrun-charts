@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.3.0](https://github.com/helmless/google-cloudrun-charts/compare/google-cloudrun-service-v0.2.1...google-cloudrun-service-v0.3.0) (2025-03-29)
+
+
+### Features
+
+* add globals for project and region ([#5](https://github.com/helmless/google-cloudrun-charts/issues/5)) ([f3c3230](https://github.com/helmless/google-cloudrun-charts/commit/f3c3230732bc65c06c17825c7d7d46351b803033))
+* revert 1.0.0 release and stick with non stable for now ([ae46f9b](https://github.com/helmless/google-cloudrun-charts/commit/ae46f9baf3016dd66f6e0dc1a9c3185c3b2a584e))
+
+
+### Bug Fixes
+
+* **deps:** update common chart dependency ([aee27ae](https://github.com/helmless/google-cloudrun-charts/commit/aee27ae4108575f429a0578c4742a17a490ff371))
+
+
+### Miscellaneous Chores
+
+* release 0.3.0 ([ca817bb](https://github.com/helmless/google-cloudrun-charts/commit/ca817bbc14b8aa186cb931188a475e414b043273))
+* release 1.0.0 ([9d28835](https://github.com/helmless/google-cloudrun-charts/commit/9d28835f7d426e028019a850f9cb784341d0a898))
+
 ## [0.2.1](https://github.com/helmless/helmless/compare/google-cloudrun-service-v0.2.0...google-cloudrun-service-v0.2.1) (2025-03-21)
 
 
