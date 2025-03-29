@@ -5,7 +5,7 @@ description: >-
   Google Cloud CLI.
 type: application
 icon: https://helmless.io/assets/images/helmless.png
-version: 1.0.0
+version: 0.1.1
 maintainers:
   - name: Michael Reichenbach (Silthus)
     email: me@silthus.net
@@ -13,5 +13,5 @@ maintainers:
 dependencies:
   - name: google-cloudrun-common
     repository: file://../common
-    version: 1.x.x
+    version: 0.x.x
     alias: common
