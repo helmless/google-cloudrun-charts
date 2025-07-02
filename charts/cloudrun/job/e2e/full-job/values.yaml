@@ -14,7 +14,6 @@ launchStage: GA
 #   key: service-key
 #   keyring: cloudrun
 serviceAccountName: full-service@helmless.iam.gserviceaccount.com
-containerName: main-container
 command: ['/bin/sh']
 args: ['-c', 'echo hello']
 resources:
@@ -52,9 +51,9 @@ volumes:
       size: 512Mi
   data:
     mountPath: /data
-    readOnly: true
     gcs:
       bucket: helmless-data
+      readOnly: true
       mountOptions:
         file-mode: '0644'
         dir-mode: '0755'

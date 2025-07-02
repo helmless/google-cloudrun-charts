@@ -17,9 +17,9 @@ volumes:
       size: 512Mi
   data:
     mountPath: /data
-    readOnly: true
     gcs:
       bucket: helmless-data
+      readOnly: true
       mountOptions:
         file-mode: '0644'
         dir-mode: '0755'
