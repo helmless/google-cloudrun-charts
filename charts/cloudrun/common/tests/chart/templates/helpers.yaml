@@ -33,3 +33,8 @@ volume: {{ include "helmless.cloudrun.volume" (dict "volume" .Values.testVolume)
 {{- if .Values.volumes }}
 volumes: {{ include "helmless.cloudrun.volumes" .Values.volumes | nindent 2 }}
 {{- end }}
+
+{{/* VolumeMounts helper test */}}
+{{- if .Values.volumeMounts }}
+volumeMounts: {{ include "helmless.cloudrun.volumeMounts" .Values.volumeMounts | nindent 2 }}
+{{- end }}

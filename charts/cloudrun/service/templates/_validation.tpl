@@ -1,6 +1,5 @@
 {{- define "helmless.cloudrun.service.validate" -}}
   {{- include "helmless.cloudrun.validateCPU" . }}
-  {{- include "helmless.cloudrun.validateVolumes" . }}
   {{- include "helmless.cloudrun.service.validateProbes" . }}
 {{- end -}}
 

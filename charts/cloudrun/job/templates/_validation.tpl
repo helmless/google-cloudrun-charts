@@ -3,7 +3,6 @@ Validate job parameters
 */}}
 {{- define "helmless.cloudrun.job.validate" -}}
 {{- include "helmless.cloudrun.validateMetadata" . -}}
-{{- include "helmless.cloudrun.validateVolumes" . -}}
 
 {{- if and (hasKey . "Values") (hasKey .Values "parallelism") (hasKey .Values "taskCount") -}}
 {{- if gt (int .Values.parallelism) (int .Values.taskCount) -}}

@@ -477,7 +477,7 @@
                 {
                     "$title": "Secret",
                     "config": {
-                        "mountPath": "/etc/config",
+                        "readOnly": true,
                         "secret": {
                             "name": "my-secret",
                             "items": [
@@ -492,7 +492,6 @@
                 {
                     "$title": "EmptyDir",
                     "cache": {
-                        "mountPath": "/cache",
                         "readOnly": false,
                         "emptyDir": {
                             "sizeLimit": "256Mi",
@@ -503,7 +502,7 @@
                 {
                     "$title": "GCS",
                     "data": {
-                        "mountPath": "/data",
+                        "readOnly": false,
                         "gcs": {
                             "bucket": "my-data-bucket",
                             "mountOptions": {
@@ -516,7 +515,7 @@
                 {
                     "$title": "NFS",
                     "shared": {
-                        "mountPath": "/shared",
+                        "readOnly": false,
                         "nfs": {
                             "server": "10.0.0.1",
                             "path": "/exports/data"
@@ -528,19 +527,7 @@
                 "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$": {
                     "type": "object",
                     "$id": "volume",
-                    "required": [
-                        "mountPath"
-                    ],
                     "properties": {
-                        "mountPath": {
-                            "type": "string",
-                            "description": "Path where the volume should be mounted in the container",
-                            "pattern": "^/.*",
-                            "examples": [
-                                "/data"
-                            ],
-                            "$since": "0.1.0"
-                        },
                         "readOnly": {
                             "type": "boolean",
                             "description": "Whether the volume should be mounted read-only",
@@ -698,6 +685,14 @@
                                             "description": "Name of the GCS bucket to mount",
                                             "$since": "0.1.0"
                                         },
+                                        "readOnly": {
+                                            "type": "boolean",
+                                            "description": "Whether the volume should be mounted read-only",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
                                         "mountOptions": {
                                             "type": "object",
                                             "description": "Additional [mount options](https://cloud.google.com/run/docs/configuring/services/cloud-storage-volume-mounts#common-mount-options) for gcsfuse",
@@ -728,6 +723,14 @@
                                         }
                                     ],
                                     "properties": {
+                                        "readOnly": {
+                                            "type": "boolean",
+                                            "description": "Whether the volume should be mounted read-only",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
                                         "server": {
                                             "type": "string",
                                             "description": "IP address or hostname of the NFS server",
@@ -749,7 +752,61 @@
                     "$since": "0.1.0"
                 }
             },
+            "propertyNames": {
+                "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$",
+                "description": "Volume name must consist of lowercase alphanumeric characters or '-', and must start and end with an alphanumeric character"
+            },
             "$since": "0.1.0"
+        },
+        "volumeMounts": {
+            "type": "array",
+            "description": "Volume mount configurations for the Cloud Run container. Each mount references a volume defined in the volumes property.",
+            "examples": [
+                {
+                    "$title": "Secret Mount",
+                    "$value": [
+                        {
+                            "name": "config",
+                            "mountPath": "/etc/config"
+                        }
+                    ]
+                },
+                {
+                    "$title": "Multiple Mounts",
+                    "$value": [
+                        {
+                            "name": "cache",
+                            "mountPath": "/cache"
+                        },
+                        {
+                            "name": "data",
+                            "mountPath": "/data"
+                        }
+                    ]
+                }
+            ],
+            "items": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "mountPath"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the volume to mount. Must match a volume name defined in the volumes property.",
+                        "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+                    },
+                    "mountPath": {
+                        "type": "string",
+                        "description": "Path where the volume should be mounted in the container",
+                        "pattern": "^/.*",
+                        "examples": [
+                            "/data"
+                        ]
+                    }
+                }
+            }
         },
         "network": {
             "type": "object",

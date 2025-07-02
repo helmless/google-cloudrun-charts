@@ -95,13 +95,8 @@ spec:
           {{- if or .Values.env .Values.secrets .Values.cloudsql }}
           env: {{- include "helmless.cloudrun.env" . | nindent 10 }}
           {{- end }}
-          {{- with .Values.volumes }}
-          volumeMounts:
-            {{- range $name, $volume := . }}
-            - name: {{ $name | quote }}
-              mountPath: {{ $volume.mountPath | quote }}
-              readOnly: {{ $volume.readOnly | default false }}
-            {{- end }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts: {{- include "helmless.cloudrun.volumeMounts" . | nindent 10 }}
           {{- end }}
       {{- with .Values.volumes }}
       volumes: {{- include "helmless.cloudrun.volumes" . | nindent 10 }}

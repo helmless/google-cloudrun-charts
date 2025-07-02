@@ -21,12 +21,13 @@ tests:
     set:
       volumes:
         config:
-          mountPath: /etc/config
-          readOnly: true
           secret:
             name: my-secret
             items:
               - path: config.json
+      volumeMounts:
+        - name: config
+          mountPath: /etc/config
     asserts:
       - contains:
           path: spec.template.spec.volumes
@@ -42,14 +43,11 @@ tests:
           content:
             name: config
             mountPath: '/etc/config'
-            readOnly: true
 
   - it: should mount secret volume with specific versions
     set:
       volumes:
         keys:
-          mountPath: /etc/keys
-          readOnly: true
           secret:
             name: my-keys
             items:
@@ -57,6 +55,9 @@ tests:
                 path: old_key.pem
               - version: '2'
                 path: new_key.pem
+      volumeMounts:
+        - name: keys
+          mountPath: /etc/keys
     asserts:
       - contains:
           path: spec.template.spec.volumes
@@ -74,16 +75,17 @@ tests:
           content:
             name: keys
             mountPath: '/etc/keys'
-            readOnly: true
 
   # EmptyDir Volume Tests
   - it: should mount emptyDir volume
     set:
       volumes:
         cache:
-          mountPath: /cache
           emptyDir:
             size: 256Mi
+      volumeMounts:
+        - name: cache
+          mountPath: /cache
     asserts:
       - contains:
           path: spec.template.spec.volumes
@@ -97,16 +99,17 @@ tests:
           content:
             name: cache
             mountPath: '/cache'
-            readOnly: false
 
   # GCS Volume Tests
   - it: should mount GCS volume with default options
     set:
       volumes:
         data:
-          mountPath: /data
           gcs:
             bucket: my-bucket
+      volumeMounts:
+        - name: data
+          mountPath: /data
     asserts:
       - contains:
           path: spec.template.spec.volumes
@@ -114,6 +117,7 @@ tests:
             name: data
             csi:
               driver: gcsfuse.run.googleapis.com
+              readOnly: false
               volumeAttributes:
                 bucketName: 'my-bucket'
       - contains:
@@ -121,21 +125,22 @@ tests:
           content:
             name: data
             mountPath: '/data'
-            readOnly: false
 
   - it: should mount GCS volume with custom options as quoted comma-separated list
     set:
       volumes:
         data:
-          mountPath: /data
-          readOnly: true
           gcs:
             bucket: my-bucket
+            readOnly: true
             mountOptions:
               file-mode: '0644'
               dir-mode: '0755'
               uid: '1000'
               gid: '1000'
+      volumeMounts:
+        - name: data
+          mountPath: /data
     asserts:
       - contains:
           path: spec.template.spec.volumes
@@ -143,6 +148,7 @@ tests:
             name: data
             csi:
               driver: gcsfuse.run.googleapis.com
+              readOnly: true
               volumeAttributes:
                 bucketName: 'my-bucket'
                 mountOptions: 'dir-mode=0755,file-mode=0644,gid=1000,uid=1000'
@@ -151,23 +157,25 @@ tests:
           content:
             name: data
             mountPath: '/data'
-            readOnly: true
 
   # NFS Volume Tests
   - it: should mount NFS volume
     set:
       volumes:
         shared:
-          mountPath: /shared
           nfs:
             server: 10.0.0.1
             path: /exports/data
+      volumeMounts:
+        - name: shared
+          mountPath: /shared
     asserts:
       - contains:
           path: spec.template.spec.volumes
           content:
             name: shared
             nfs:
+              readOnly: false
               server: '10.0.0.1'
               path: '/exports/data'
       - contains:
@@ -175,38 +183,41 @@ tests:
           content:
             name: shared
             mountPath: '/shared'
-            readOnly: false
 
   # Volume Name Validation
   - it: should fail when volume name contains uppercase
     set:
       volumes:
         myVolume:
-          mountPath: /data
           emptyDir:
             size: 256Mi
+      volumeMounts:
+        - name: myVolume
+          mountPath: /data
     asserts:
-      - failedTemplate:
-          errorMessage: 'Volume name "myVolume" must consist of lowercase alphanumeric characters or ''-'', and must start and end with an alphanumeric character'
+      - failedTemplate: {}
 
   - it: should fail when volume name contains invalid characters
     set:
       volumes:
         my_volume:
-          mountPath: /data
           emptyDir:
             size: 256Mi
+      volumeMounts:
+        - name: my_volume
+          mountPath: /data
     asserts:
-      - failedTemplate:
-          errorMessage: 'Volume name "my_volume" must consist of lowercase alphanumeric characters or ''-'', and must start and end with an alphanumeric character'
+      - failedTemplate: {}
 
   # Mount Path Validation
   - it: should fail when mountPath doesn't start with /
     set:
       volumes:
         data:
-          mountPath: data
           emptyDir:
             size: 256Mi
+      volumeMounts:
+        - name: data
+          mountPath: data
     asserts:
       - failedTemplate: {}

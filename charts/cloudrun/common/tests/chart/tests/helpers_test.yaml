@@ -244,6 +244,7 @@ tests:
           value:
             csi:
               driver: "gcsfuse.run.googleapis.com"
+              readOnly: false
               volumeAttributes:
                 bucketName: "my-bucket"
                 mountOptions: "dir-mode=0755,file-mode=0644"
@@ -261,6 +262,7 @@ tests:
             nfs:
               server: "10.0.0.1"
               path: "/exports/data"
+              readOnly: false
 
   # Volumes Helper Tests
   - it: should correctly format multiple volumes
@@ -299,10 +301,12 @@ tests:
         data:
           gcs:
             bucket: "data-bucket"
+            readOnly: true
         shared:
           nfs:
             server: "10.0.0.2"
             path: "/exports/shared"
+            readOnly: true
     asserts:
       - contains:
           path: volumes
@@ -310,6 +314,7 @@ tests:
             name: "data"
             csi:
               driver: "gcsfuse.run.googleapis.com"
+              readOnly: true
               volumeAttributes:
                 bucketName: "data-bucket"
       - contains:
@@ -317,5 +322,19 @@ tests:
           content:
             name: "shared"
             nfs:
+              readOnly: true
               server: "10.0.0.2"
               path: "/exports/shared"
+
+  # VolumeMounts Helper Tests
+  - it: should correctly format volume mounts
+    set:
+      volumeMounts:
+        - name: "config"
+          mountPath: "/etc/config"
+    asserts:
+      - equal:
+          path: volumeMounts
+          value:
+            - name: "config"
+              mountPath: "/etc/config"

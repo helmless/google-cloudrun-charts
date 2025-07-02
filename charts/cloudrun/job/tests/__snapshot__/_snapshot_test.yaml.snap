@@ -85,19 +85,6 @@ should render with full configuration:
                   limits:
                     cpu: "4"
                     memory: 2Gi
-                volumeMounts:
-                  - mountPath: /cache
-                    name: cache
-                    readOnly: false
-                  - mountPath: /etc/config
-                    name: config
-                    readOnly: false
-                  - mountPath: /data
-                    name: data
-                    readOnly: true
-                  - mountPath: /shared
-                    name: shared
-                    readOnly: false
             maxRetries: 3
             serviceAccountName: my-service-account
             timeoutSeconds: 600
@@ -116,6 +103,7 @@ should render with full configuration:
                   secretName: app-config
               - csi:
                   driver: gcsfuse.run.googleapis.com
+                  readOnly: false
                   volumeAttributes:
                     bucketName: my-data-bucket
                     mountOptions: dir-mode=0755,file-mode=0644,gid=1000,uid=1000
@@ -123,6 +111,7 @@ should render with full configuration:
               - name: shared
                 nfs:
                   path: /exports/data
+                  readOnly: false
                   server: 10.0.0.1
 should render with network configuration:
   1: |
