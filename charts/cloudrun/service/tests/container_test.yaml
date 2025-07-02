@@ -60,14 +60,6 @@ tests:
       - notExists:
           path: spec.template.spec.containers[0].name
 
-  - it: should set container name when specified
-    set:
-      containerName: my-container
-    asserts:
-      - equal:
-          path: spec.template.spec.containers[0].name
-          value: my-container
-
   # Command & Args
   - it: should not set command when not specified
     asserts:

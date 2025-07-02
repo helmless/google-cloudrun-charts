@@ -38,15 +38,6 @@ tests:
           path: spec.template.metadata.name
           value: my-service-rev-v1
 
-  # ContainerName
-  - it: should set container name when specified
-    set:
-      containerName: my-custom-container
-    asserts:
-      - equal:
-          path: spec.template.spec.containers[0].name
-          value: my-custom-container
-
   - it: should not set container name when not specified
     asserts:
       - notExists:

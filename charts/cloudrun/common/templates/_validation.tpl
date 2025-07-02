@@ -30,14 +30,3 @@ Validate CPU settings and return error message if invalid
     {{- end -}}
 {{- end -}}
 {{- end -}}
-
-{{/*
-Validate volume names
-*/}}
-{{- define "helmless.cloudrun.validateVolumes" -}}
-{{- range $name, $volume := .Values.volumes }}
-{{- if not (regexMatch "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$" $name) }}
-{{- fail (printf "Volume name %q must consist of lowercase alphanumeric characters or '-', and must start and end with an alphanumeric character" $name) }}
-{{- end }}
-{{- end }}
-{{- end }}

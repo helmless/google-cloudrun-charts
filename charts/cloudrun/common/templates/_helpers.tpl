@@ -149,6 +149,7 @@ emptyDir:
 {{- else if $volume.gcs -}}
 csi:
   driver: "gcsfuse.run.googleapis.com"
+  readOnly: {{ $volume.gcs.readOnly | default false }}
   volumeAttributes:
     bucketName: {{ $volume.gcs.bucket | quote }}
     {{- with $volume.gcs.mountOptions }}
@@ -162,6 +163,7 @@ csi:
 nfs:
   server: {{ $volume.nfs.server | quote }}
   path: {{ $volume.nfs.path | quote }}
+  readOnly: {{ $volume.nfs.readOnly | default false }}
 {{- end -}}
 {{- end -}}
 
@@ -172,5 +174,15 @@ Render multiple volumes for Cloud Run
 {{- range $name, $volume := . }}
 - name: {{ $name | quote }}
   {{- include "helmless.cloudrun.volume" (dict "volume" $volume "name" $name) | nindent 2 }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Render volume mounts for Cloud Run
+*/}}
+{{- define "helmless.cloudrun.volumeMounts" -}}
+{{- range . }}
+- name: {{ .name | quote }}
+  mountPath: {{ .mountPath | quote }}
 {{- end }}
 {{- end -}}

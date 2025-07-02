@@ -46,8 +46,7 @@
           "type": "string",
           "examples": [
             "my-project"
-          ],
-          "$since": "0.3.0"
+          ]
         },
         "region": {
           "description": "The region to deploy the CloudRun service to. Uses the default region if not provided.",
@@ -60,8 +59,7 @@
             "us-central1",
             "europe-west1",
             "asia-east1"
-          ],
-          "$since": "0.3.0"
+          ]
         }
       },
       "$since": "0.1.1"
@@ -75,16 +73,14 @@
       ],
       "examples": [
         "my-cloudrun-container"
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "project": {
       "description": "The Google cloud project to deploy the Cloud Run Service or Job to.",
       "type": "string",
       "examples": [
         "my-project"
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "region": {
       "description": "The region to deploy the CloudRun service to. Uses the default region if not provided.",
@@ -97,8 +93,7 @@
         "us-central1",
         "europe-west1",
         "asia-east1"
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "image": {
       "description": "Container image to deploy. You can provide a direct reference to an image using a `string` or split up the inputs using the `object`.",
@@ -174,24 +169,21 @@
           "name": "my-image",
           "tag": "0.3.0"
         }
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "revisionName": {
       "description": "The name of the Cloud Run revision to deploy. If not provided, a random name will be generated. The revision will always be prefixed with the service name.",
       "type": "string",
       "examples": [
         "my-revision"
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "containerName": {
       "description": "Optional name for the container within a revision. Automatically generated if not supplied.",
       "type": "string",
       "examples": [
         "my-container"
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "serviceAccountName": {
       "description": "Service account to use to run the CloudRun container. If not provided, the default service account of the project is used.",
@@ -206,8 +198,7 @@
       "type": "string",
       "examples": [
         "My service does xyz."
-      ],
-      "$since": "0.1.1"
+      ]
     },
     "env": {
       "description": "Environment variables to set in the CloudRun container. Using an object allows merging of multiple values, e.g. `env.staging` and `env.production`.",
@@ -562,7 +553,7 @@
         {
           "$title": "Secret",
           "config": {
-            "mountPath": "/etc/config",
+            "readOnly": true,
             "secret": {
               "name": "my-secret",
               "items": [
@@ -577,7 +568,6 @@
         {
           "$title": "EmptyDir",
           "cache": {
-            "mountPath": "/cache",
             "readOnly": false,
             "emptyDir": {
               "sizeLimit": "256Mi",
@@ -588,7 +578,7 @@
         {
           "$title": "GCS",
           "data": {
-            "mountPath": "/data",
+            "readOnly": false,
             "gcs": {
               "bucket": "my-data-bucket",
               "mountOptions": {
@@ -601,7 +591,7 @@
         {
           "$title": "NFS",
           "shared": {
-            "mountPath": "/shared",
+            "readOnly": false,
             "nfs": {
               "server": "10.0.0.1",
               "path": "/exports/data"
@@ -613,19 +603,7 @@
         "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$": {
           "type": "object",
           "$id": "volume",
-          "required": [
-            "mountPath"
-          ],
           "properties": {
-            "mountPath": {
-              "type": "string",
-              "description": "Path where the volume should be mounted in the container",
-              "pattern": "^/.*",
-              "examples": [
-                "/data"
-              ],
-              "$since": "0.1.0"
-            },
             "readOnly": {
               "type": "boolean",
               "description": "Whether the volume should be mounted read-only",
@@ -783,6 +761,14 @@
                       "description": "Name of the GCS bucket to mount",
                       "$since": "0.1.0"
                     },
+                    "readOnly": {
+                      "type": "boolean",
+                      "description": "Whether the volume should be mounted read-only",
+                      "default": false,
+                      "examples": [
+                        true
+                      ]
+                    },
                     "mountOptions": {
                       "type": "object",
                       "description": "Additional [mount options](https://cloud.google.com/run/docs/configuring/services/cloud-storage-volume-mounts#common-mount-options) for gcsfuse",
@@ -813,6 +799,14 @@
                     }
                   ],
                   "properties": {
+                    "readOnly": {
+                      "type": "boolean",
+                      "description": "Whether the volume should be mounted read-only",
+                      "default": false,
+                      "examples": [
+                        true
+                      ]
+                    },
                     "server": {
                       "type": "string",
                       "description": "IP address or hostname of the NFS server",
@@ -834,7 +828,61 @@
           "$since": "0.1.0"
         }
       },
+      "propertyNames": {
+        "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$",
+        "description": "Volume name must consist of lowercase alphanumeric characters or '-', and must start and end with an alphanumeric character"
+      },
       "$since": "0.1.0"
+    },
+    "volumeMounts": {
+      "type": "array",
+      "description": "Volume mount configurations for the Cloud Run container. Each mount references a volume defined in the volumes property.",
+      "examples": [
+        {
+          "$title": "Secret Mount",
+          "$value": [
+            {
+              "name": "config",
+              "mountPath": "/etc/config"
+            }
+          ]
+        },
+        {
+          "$title": "Multiple Mounts",
+          "$value": [
+            {
+              "name": "cache",
+              "mountPath": "/cache"
+            },
+            {
+              "name": "data",
+              "mountPath": "/data"
+            }
+          ]
+        }
+      ],
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "mountPath"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the volume to mount. Must match a volume name defined in the volumes property.",
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          "mountPath": {
+            "type": "string",
+            "description": "Path where the volume should be mounted in the container",
+            "pattern": "^/.*",
+            "examples": [
+              "/data"
+            ]
+          }
+        }
+      }
     },
     "network": {
       "type": "object",

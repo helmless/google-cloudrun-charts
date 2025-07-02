@@ -148,6 +148,9 @@
       "$ref": "../common/common.schema.json#/$defs/volumes",
       "$since": "0.1.1"
     },
+    "volumeMounts": {
+      "$ref": "../common/common.schema.json#/$defs/volumeMounts"
+    },
     "network": {
       "$ref": "../common/common.schema.json#/$defs/network",
       "$since": "0.1.1"
