@@ -80,6 +80,10 @@
       "$ref": "../common/common.schema.json#/$defs/serviceAccountName",
       "$since": "0.1.1"
     },
+    "labels": {
+      "$ref": "../common/common.schema.json#/$defs/labels",
+      "$since": "0.1.1"
+    },
     "description": {
       "$ref": "../common/common.schema.json#/$defs/description",
       "$since": "0.1.1"

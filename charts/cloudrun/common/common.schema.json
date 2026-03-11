@@ -454,18 +454,18 @@
                 }
             ],
             "patternProperties": {
-                "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$": {
+                "^[a-z0-9]([-_a-z0-9]*[a-z0-9])?$": {
                     "$id": "label",
                     "type": "string",
                     "maxLength": 63,
-                    "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$",
+                    "pattern": "^[a-z0-9]([-_a-z0-9]*[a-z0-9])?$",
                     "description": "Label key and value must conform to the Cloud Run label schema of lowercase alphanumeric characters, hyphens, and underscores and be 63 characters or less.",
                     "$since": "0.1.0"
                 }
             },
             "propertyNames": {
                 "maxLength": 63,
-                "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+                "pattern": "^[a-z0-9]([-_a-z0-9]*[a-z0-9])?$"
             },
             "additionalProperties": false,
             "$since": "0.1.0"
