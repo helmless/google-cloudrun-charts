@@ -42,6 +42,11 @@ release: {{ .Release.Name | quote }}
 helmless-chart: {{ .Chart.Name | quote }}
 helmless-chart-version: {{ .Chart.Version | replace "." "_" | quote }}
 managed-by: helmless
+{{- with .Values.labels }}
+{{- range $key, $value := . }}
+{{ $key }}: {{ $value | quote }}
+{{- end }}
+{{- end }}
 {{- end }}
 
 {{/*
